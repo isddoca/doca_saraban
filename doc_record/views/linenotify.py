@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from rest_framework import status
-from songline import Sendline
+#from songline import Sendline
 
 from doc_record.models import LineNotifyToken
 
@@ -60,12 +60,12 @@ def send_doc_notify(group, doc_model, unit, url):
     for user in users_in_unit:
         try:
             user_token = LineNotifyToken.objects.get(user=user)
-            linenotify = Sendline(user_token.token)
+            #linenotify = Sendline(user_token.token)
             msg_template = "มีหนังสือส่งมาจาก : {send_from}\nที่ : {doc_no}\nลงวันที่ : {doc_date}\nเรื่อง : {title}\nURL : {url}"
             message = msg_template.format(send_from=group.name, doc_no=doc_model.doc_no,
                                           doc_date=doc_model.doc_date_th(),
                                           title=doc_model.title, url=url)
-            linenotify.sendtext(message)
+            #linenotify.sendtext(message)
         except LineNotifyToken.DoesNotExist:
             print(user.username + " not registered line notify")
         except requests.exceptions.ConnectionError:
@@ -102,8 +102,8 @@ def doc_trace_notify(doc_trace, from_group, to_group, url):
         try:
             print(user.username)
             user_token = LineNotifyToken.objects.get(user=user)
-            linenotify = Sendline(user_token.token)
-            linenotify.sendtext(message)
+            #linenotify = Sendline(user_token.token)
+            #linenotify.sendtext(message)
         except LineNotifyToken.DoesNotExist:
             print(user.username + " not registered line notify")
         except requests.exceptions.ConnectionError:
