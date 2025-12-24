@@ -1,4 +1,4 @@
-/*global gettext, interpolate, ngettext*/
+/*global gettext, interpolate, ngettext, Actions*/
 'use strict';
 {
     function show(selector) {
@@ -140,7 +140,7 @@
             const endIndex = Math.max(targetIndex, lastCheckedIndex);
             const filtered = checkboxes.filter((el, index) => (startIndex <= index) && (index <= endIndex));
             return filtered;
-        }
+        };
 
         Array.from(document.getElementById('result_list').tBodies).forEach(function(el) {
             el.addEventListener('change', function(event) {
@@ -179,6 +179,9 @@
                 }
             });
         }
+        // Sync counter when navigating to the page, such as through the back
+        // button.
+        window.addEventListener('pageshow', (event) => updateCounter(actionCheckboxes, options));
     };
 
     // Call function fn when the DOM is loaded and ready. If it is already
