@@ -13,7 +13,7 @@ from django.views.generic import ListView
 from config import settings
 from doc_record.forms import DocReceiveModelForm, DocModelForm, DocCredentialModelForm
 from doc_record.models import DocReceive, DocFile, DocTrace, Doc
-from doc_record.views.base import generate_doc_id, get_line_id
+from doc_record.views.base import generate_doc_id
 from doc_record.views.linenotify import send_doc_notify
 
 env = environ.Env()
@@ -133,7 +133,7 @@ def doc_receive_add(request):
                                     done=True,
                                     action_to_id=current_group.id, time=datetime.now(timezone))
 
-            get_line_id(send_to)
+            #get_line_id(send_to)
 
             for unit in send_to:
                 doctrace = DocTrace.objects.create(doc=doc_model, doc_status_id=2, create_by=user, action_to=unit,

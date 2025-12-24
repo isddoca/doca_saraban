@@ -52,9 +52,6 @@ INSTALLED_APPS = [
 
     'django.contrib.sites',
     'allauth',  # New
-    'allauth.account',  # New
-    'allauth.socialaccount',  # New
-    'allauth.socialaccount.providers.line',  # New
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -65,19 +62,6 @@ AUTHENTICATION_BACKENDS = (
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_FORMS = {'signup': 'doc_record.forms.BasicSignupForm'}
-SOCIALACCOUNT_FORMS = {'signup': 'doc_record.forms.SocialSignupForm'}
-SOCIALACCOUNT_AUTO_SIGNUP = False
-SOCIALACCOUNT_PROVIDERS = {
-    'line': {
-        'APP': {
-            'client_id': env('LINE_LOGIN_CHANNEL_ID'),
-            'secret': env('LINE_LOGIN_CHANNEL_SECRET')
-        },
-        "SCOPE": ['profile', 'openid', 'email']
-    }
-}
-
-SOCIALACCOUNT_ADAPTER = 'doc_record.adapter.SocialAccountAdapter'
 
 GROUPS_MANAGER = {
     'AUTH_MODELS_SYNC': True,
@@ -126,8 +110,11 @@ DATABASES = {
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASS'),
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': 3306,
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 

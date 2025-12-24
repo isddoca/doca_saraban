@@ -3,7 +3,6 @@ from datetime import datetime
 import django.utils.timezone
 import pytz
 from allauth.account.forms import SignupForm as b_form
-from allauth.socialaccount.forms import SignupForm as s_form
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django import forms
@@ -70,24 +69,6 @@ class BasicSignupForm(b_form):
         sign_up.password = make_password(self.cleaned_data['password1'])
         sign_up.groups.set(self.cleaned_data['groups'])
         sign_up.is_active = True
-        sign_up.save()
-        return sign_up
-
-
-class SocialSignupForm(s_form):
-    first_name = forms.CharField(max_length=50, label='ยศและชื่อ')
-    last_name = forms.CharField(max_length=50, label='นามสกุล')
-    groups = forms.ModelMultipleChoiceField(queryset=Group.objects,
-                                            widget=forms.SelectMultiple(
-                                                attrs={'class': 'form-control selectmultiple form-select'}),
-                                            label="หน่วยงาน", required=True)
-
-    def save(self, request):
-        sign_up = super(SocialSignupForm, self).save(request)
-        sign_up.first_name = self.cleaned_data['first_name']
-        sign_up.last_name = self.cleaned_data['last_name']
-        sign_up.is_active = True
-        sign_up.groups.set(self.cleaned_data['groups'])
         sign_up.save()
         return sign_up
 

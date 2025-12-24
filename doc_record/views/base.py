@@ -1,7 +1,6 @@
 import json
 from datetime import date
 
-from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
@@ -111,7 +110,3 @@ def generate_doc_id():
     return doc_id
 
 
-def get_line_id(send_unit):
-    user_of_group = User.objects.filter(groups__in=send_unit)
-    line_accounts = SocialAccount.objects.filter(user__in=user_of_group)
-    return line_accounts
