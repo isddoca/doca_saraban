@@ -107,26 +107,6 @@
 								</div>
 								<!-- end row -->
 							</form>
-							<div class="singin-option pt-40">
-								<p class="text-sm text-medium text-center text-gray">
-									หรือเข้าระบบด้วย
-								</p>
-								<div
-									class="button-group d-flex justify-content-center flex-wrap"
-								>
-									<form
-										id="line"
-										method="post"
-										action="/accounts/line/login/?next={{ request.GET.next }}"
-									>
-										{% csrf_token %}
-										<button class="main-btn success-btn-outline m-2">
-											<i class="lni lni-line mr-10"></i>
-											Line
-										</button>
-									</form>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
