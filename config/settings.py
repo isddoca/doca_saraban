@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'django.contrib.sites',
-    'allauth',  # New
+    'allauth',
+    'allauth.account',
 ]
 
 AUTHENTICATION_BACKENDS = (
