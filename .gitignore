@@ -1,3 +1,4 @@
 /config/.env
 /doc_classify/models/*.*
 /.idea
+*.pyc
