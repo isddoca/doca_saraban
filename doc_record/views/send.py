@@ -226,7 +226,9 @@ def doc_send_edit(request, group_id, id):
             files = request.FILES.getlist('file')
             if len(files) > 0:
                 for f in doc_old_files:
-                    os.remove(os.path.join(settings.MEDIA_ROOT, f.file.name))
+                    file_path = os.path.join(settings.MEDIA_ROOT, f.file.name)
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
                     f.delete()
 
                 for f in files:
