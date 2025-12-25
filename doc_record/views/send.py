@@ -15,6 +15,7 @@ from doc_record.forms import DocModelForm, DocCredentialModelForm, DocSendModelF
 from doc_record.models import DocFile, DocTrace, Doc, DocSend
 from doc_record.views.base import generate_doc_id
 from doc_record.views.linenotify import send_doc_notify
+from doc_record.utils.file_manager import handle_unicode_file, safe_delete_file, create_safe_docfile   
 
 
 @method_decorator(login_required, name='dispatch')
@@ -133,7 +134,7 @@ def doc_send_add(request, group_id):
 
             req_files = request.FILES.getlist('file')
             for f in req_files:
-                DocFile.objects.create(file=f, doc=doc_model)
+                create_safe_docfile(f, doc_model)
 
             doc_send_model = doc_send_form.save(commit=False)
             doc_send_model.id = request.POST["send_id"]
@@ -232,7 +233,7 @@ def doc_send_edit(request, group_id, id):
                     f.delete()
 
                 for f in files:
-                    DocFile.objects.create(file=f, doc=doc_model)
+                    create_safe_docfile(f, doc_model)
 
             send_to = doc_send_model.send_to.all()
 

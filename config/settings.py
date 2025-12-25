@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 
 import environ
@@ -18,6 +19,16 @@ import environ
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
+
+# Encoding settings
+DEFAULT_CHARSET = 'utf-8'
+FILE_CHARSET = 'utf-8'
+
+# Force UTF-8 encoding
+if sys.platform == 'win32':
+    import locale
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

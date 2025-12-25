@@ -15,6 +15,7 @@ from doc_record.forms import DocReceiveModelForm, DocModelForm, DocCredentialMod
 from doc_record.models import DocReceive, DocFile, DocTrace, Doc
 from doc_record.views.base import generate_doc_id
 from doc_record.views.linenotify import send_doc_notify
+from doc_record.utils.file_manager import handle_unicode_file, safe_delete_file, create_safe_docfile
 
 env = environ.Env()
 environ.Env.read_env()
@@ -119,7 +120,7 @@ def doc_receive_add(request):
 
             req_files = request.FILES.getlist('file')
             for f in req_files:
-                DocFile.objects.create(file=f, doc=doc_model)
+                create_safe_docfile(f, doc_model)
 
             doc_receive_model = doc_receive_form.save(commit=False)
             doc_receive_model.id = request.POST["receive_id"]
@@ -221,7 +222,7 @@ def doc_receive_edit(request, id):
                     f.delete()
 
                 for f in files:
-                    DocFile.objects.create(file=f, doc=doc_model)
+                    create_safe_docfile(f, doc_model)
 
             send_to = doc_receive_model.send_to.all()
             DocTrace.objects.get_or_create(doc=doc_model, doc_status_id=1, create_by=user,
