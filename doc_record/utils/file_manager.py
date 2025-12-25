@@ -13,7 +13,7 @@ def handle_unicode_file(uploaded_file):
         # Check if filename contains non-ASCII characters
         if any(ord(char) > 127 for char in original_name):
             name, ext = os.path.splitext(original_name)
-            safe_name = slugify(name, allow_unicode=True)
+            safe_name = slugify(name)
             if not safe_name:
                 safe_name = str(uuid.uuid4())[:8]
             uploaded_file.name = f"{safe_name}{ext}"
