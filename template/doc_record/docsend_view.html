@@ -64,7 +64,7 @@
                     <p class="fw-bold">ความเร่งด่วน</p>
                 </div>
                 <div class="form-group col-sm-10">
-                    {% if data.doc.urgent %}
+                    {% if doc_send.doc.urgent %}
                         {{ doc_send.doc.urgent }}
                     {% else %}
                         -
@@ -76,7 +76,7 @@
                     <p class="fw-bold">ชั้นความลับ</p>
                 </div>
                 <div class="form-group col-sm-10">
-                    {% if data.doc.credential %}
+                    {% if doc_send.doc.credential %}
                         {{ doc_send.doc.credential }}
                     {% else %}
                         -
